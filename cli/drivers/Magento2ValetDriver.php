@@ -2,42 +2,58 @@
 
 class Magento2ValetDriver extends ValetDriver
 {
-    public function configure($devtools, $url)
+    public function configure($devtools, $url, $searchengine)
     {
         info('Configuring Magento 2...');
         $devtools->cli->quietlyAsUser('chmod +x bin/magento');
 
         $sitePath = getcwd();
 
-        if (!$this->envExists($sitePath)) {
-            info('env.php missing. Installing default env.php...');
-            $devtools->files->putAsUser(
-                $sitePath.'/app/etc/env.php',
-                str_replace(
-                    'DBNAME',
-                    $devtools->mysql->getDirName(),
-                    $devtools->files->get(__DIR__.'/../stubs/magento2/env.php')
-                )
-            );
-        }
-
         if (!$this->moduleConfigExists($sitePath)) {
             info('config.php missing. Enabling all modules...');
             $devtools->cli->quietlyAsUser('bin/magento module:enable --all');
         }
 
-        info('Setting base url...');
-        $devtools->cli->quietlyAsUser('n98-magerun2 config:store:set web/unsecure/base_url ' . $url . '/');
-        $devtools->cli->quietlyAsUser('n98-magerun2 config:store:set web/secure/base_url ' . $url . '/');
+        if (!$this->envExists($sitePath)) {
+            info('env.php missing. Installing default env.php...');
+            $envTemplate = $devtools->files->get(__DIR__.'/../stubs/magento2/env.php');
+            $resultEnv = str_replace('DBNAME', $devtools->mysql->getDirName(), $envTemplate);
+            $resultEnv = str_replace('URL', $url, $resultEnv);
 
-        info('Setting elastic search hostname...');
-        $devtools->cli->quietlyAsUser('n98-magerun2 config:store:set catalog/search/elasticsearch_server_hostname 127.0.0.1');
-        
-        info('Enabling URL rewrites...');
-        $devtools->cli->quietlyAsUser('n98-magerun2 config:store:set web/seo/use_rewrites 1');
-        
+            switch ($searchengine) {
+                case 'opensearch':
+                    $searchEnginePort = '9300';
+                    break;
+                case 'opensearch2':
+                    $searchEnginePort = '9400';
+                    break;
+                default:
+                    $searchEnginePort = '9200';
+                    break;
+            }
+
+            if ($this->moduleConfigExists($sitePath)) {
+                info('Set search engine...');
+                $resultEnv = str_replace(
+                    'SEARCH_ENGINE',
+                    preg_match(
+                        '/["\']Smile_ElasticsuiteCore["\']\s*=>\s*["\']?1["\']?/',
+                        $devtools->files->get($sitePath . '/app/etc/config.php')
+                    ) ? 'elasticsuite' : $searchengine,
+                    $resultEnv
+                );
+                $resultEnv = str_replace(
+                    'SEARCH_PORT',
+                    $searchEnginePort,
+                    $resultEnv
+                );
+            }
+
+            $devtools->files->putAsUser($sitePath . '/app/etc/env.php', $resultEnv);
+        }
+
         info('Flushing cache...');
-        $devtools->cli->quietlyAsUser('n98-magerun2 cache:flush');
+        $devtools->cli->quietlyAsUser('bin/magento cache:flush');
 
         info('Configured Magento 2');
     }

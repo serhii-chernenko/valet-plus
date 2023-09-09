@@ -156,7 +156,7 @@ class DevTools
         }
     }
 
-    public function configure()
+    public function configure($searchengine)
     {
         require realpath(__DIR__ . '/../drivers/require.php');
 
@@ -168,7 +168,7 @@ class DevTools
         $url = ($isSecure ? 'https://' : 'http://') . $domain;
 
         if (method_exists($driver, 'configure')) {
-            return $driver->configure($this, $url);
+            return $driver->configure($this, $url, $searchengine);
         }
 
         info('No configuration settings found.');
