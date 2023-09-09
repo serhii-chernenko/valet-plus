@@ -349,6 +349,13 @@ class Site
     public function buildNginxConfig($url, $secure, $proxy)
     {
         $path = $this->certificatesPath();
+        $projectDir = getcwd();
+        $notMagento = $this->files->exists($projectDir . '/bin/magento') == 0;
+
+        $stub = 'valet.conf';
+        $proxy && $stub = 'proxy.'.$stub;
+        $secure && $stub = 'secure.'.$stub;
+        $secure && !$notMagento && $stub = 'magento2/' . $stub;
 
         $variables = [
             'VALET_HOME_PATH' => VALET_HOME_PATH,
@@ -358,11 +365,9 @@ class Site
             'VALET_CERT' => $path.'/'.$url.'.crt',
             'VALET_KEY' => $path.'/'.$url.'.key',
             'VALET_PROXY_PASS' => $proxy,
+            'VALET_PROJECT_ROOT' => $projectDir,
+            'VALET_MAGENTO2_NGINX_CONFIG' => __DIR__ . '/stubs/magento2/nginx.conf'
         ];
-
-        $stub = 'valet.conf';
-        $proxy && $stub = 'proxy.'.$stub;
-        $secure && $stub = 'secure.'.$stub;
 
         return str_replace(
             array_keys($variables),
