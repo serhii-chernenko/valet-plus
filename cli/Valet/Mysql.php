@@ -131,7 +131,7 @@ class Mysql
      */
     public function supportedVersions()
     {
-        return ['mysql', 'mariadb', 'mysql@5.7'];
+        return ['mysql', 'mariadb@10.4', 'mysql@5.7'];
     }
 
     /**
