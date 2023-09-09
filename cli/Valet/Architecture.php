@@ -40,12 +40,7 @@ class Architecture
      */
     public function isArm64()
     {
-        if (strpos($this->cli->run('uname -m'), self::ARM_64) !== false) {
-            info('ARM Mac detected');
-            return true;
-        }
-        info('Intel Mac detected');
-        return false;
+        return strpos($this->cli->run('uname -m'), self::ARM_64) !== false;
     }
 
     /**
