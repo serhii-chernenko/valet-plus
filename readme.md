@@ -375,8 +375,29 @@ bin/magento sampledata:deploy
 
 ## Search Engines
 
-- Elasticsearch: http://localhost:9200
+### Domains
+
 - Opensearch: http://localhost:9300
+- Elasticsearch: http://localhost:9200
+
+### Logs
+
+Opensearch:
+
+```shell
+valet opensearch logs
+```
+
+Elasticsearch:
+
+```shell
+valet elasticsearch logs
+```
+
+## Mailhog (catch all emails)
+
+- http://localhost:8025
+- http://mailhog.test
 
 ## Xdebug
 
