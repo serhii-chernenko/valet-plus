@@ -1,4 +1,15 @@
-<p align="center"><img width="200" src="images/logo.png"></p>
+# Valet+ for Magento 2 by Magento 2 Engineer
+<hr/>
+
+## Get in touch
+
+- [YouTube Channel](https://youtube.com/@serhii.chernenko)
+- [Telegram Channel](https://t.me/serhii_chernenko)
+- [Telegram Group](https://t.me/serhii_chernenko_chat)
+- [LinkedIn](https://linkedin.com/in/serhii-chernenko)
+- [Portfolio](https://chernenko.digital)
+- [Magento 2 instance with workshops examples](https://m246.chernenko.work)
+- Email: <a href="mailto:contact@chernenko.digital">contact@chernenko.digital</a>
 
 ## Introduction
 
@@ -309,3 +320,36 @@ bin/magento deploy:mode:set developer
 ### Open the project in your browser
 
 https://m246.test
+
+## Search Engines
+
+- Elasticsearch: http://localhost:9200
+- Opensearch: http://localhost:9300
+
+## Xdebug
+
+Enable:
+
+```shell
+valet xdebug on
+```
+
+Disable:
+
+```shell
+valet xdebug off
+```
+
+## Switch PHP version
+
+8.1:
+
+```shell
+valet use php@8.1
+```
+
+7.4:
+
+```shell
+valet use php@7.4
+```
