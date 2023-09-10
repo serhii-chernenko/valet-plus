@@ -108,4 +108,204 @@ valet install
 valet install --with-mysql-8
 ```
 
-## Magento 2 installation
+## Magento 2 Installation
+
+### Add Magento 2 files
+
+Choose a directory where you have your projects:
+
+```shell
+cd ~/dev/main
+```
+
+### Create a database for the project:
+
+```shell
+valet db create m246
+```
+
+### Get authentication keys from Magento Marketplace
+
+Make sure that you have `auth.json` file globally in `~/.composer/` or in a project directory (that will be created next steps).
+
+`auth.json` has to contain the keys:
+
+```json
+{
+    "http-basic": {
+        "repo.magento.com": {
+            "username": "",
+            "password": ""
+        }
+    }
+}
+```
+
+If you don't have the file or it doesn't contain the keys, you can get them from the [Adobe Commerce Marketplace](https://commercemarketplace.adobe.com/customer/accessKeys/).
+
+See more details in the [video](https://youtu.be/KWo3yMTeUEI?t=1357&si=iv9PfbpiEwLzXIA4).
+
+When you will run the `composer create-project` or `composer install` command, you will be asked to enter the keys. So, don't worry if you don't have the `auth.json` file at this step.
+
+#### Magento 2 New Project Installation
+
+Create a new directory for the project.<br/>
+Replace `m246` to any folder name you want:
+    
+```shell
+mkdir m246
+```
+Go to the created folder:
+
+```shell
+cd $_
+```
+
+Require [Magento 2 via Composer](https://experienceleague.adobe.com/docs/commerce-operations/installation-guide/composer.html?lang=en#get-the-metapackage):
+
+```shell
+# Community Edition
+composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition .
+# Commerce (Enterprise) Edition
+composer create-project --repository-url=https://repo.magento.com/ magento/project-enterprise-edition .
+```
+
+Run the [Magento 2 installation](https://experienceleague.adobe.com/docs/commerce-operations/installation-guide/composer.html?lang=en#install-the-application):
+
+For 2.4.6+ version with Opensearch 2:
+
+```shell
+bin/magento setup:install \
+    --base-url=https://m246.test \
+    --db-host=localhost \
+    --db-name=m246 \
+    --db-user=root \
+    --db-password=root \
+    --admin-firstname=Admin \
+    --admin-lastname=Admin \
+    --admin-email=admin@admin.com \
+    --admin-user=admin \
+    --admin-password=password123 \
+    --language=en_US \
+    --currency=USD \
+    --timezone=Europe/Kyiv \
+    --use-rewrites=1 \
+    --search-engine=opensearch \
+    --opensearch-host=localhost \
+    --opensearch-port=9300 \
+    --opensearch-index-prefix=m246 \
+    --opensearch-timeout=15
+```
+
+For <= 2.4.5 version with Elasticsearch 7:
+
+```shell
+bin/magento setup:install \
+    --base-url=https://m246.test \
+    --db-host=localhost \
+    --db-name=m246 \
+    --db-user=root \
+    --db-password=root \
+    --admin-firstname=Admin \
+    --admin-lastname=Admin \
+    --admin-email=admin@admin.com \
+    --admin-user=admin \
+    --admin-password=password123 \
+    --language=en_US \
+    --currency=USD \
+    --timezone=Europe/Kyiv \
+    --use-rewrites=1 \
+    --search-engine=elasticsearch7 \
+    --elasticsearch-host=localhost \
+    --elasticsearch-port=9200 \
+    --elasticsearch-index-prefix=m246 \
+    --elasticsearch-timeout=15
+```
+
+#### Magento 2 Existing Project Installation
+
+Clone the repo to a directory for the project.<br/>
+Replace clone command to your repo.<br/>
+Replace `m246` to any folder name you want or remove it the have the same name as the repo has:
+
+```shell
+git clone git@domain.com:vendor/project.git m246
+```
+
+Go to the cloned folder:
+
+```shell
+cd m246
+```
+
+Run the composer installation:
+
+```shell
+composer install
+```
+
+### Link the project directory to Valet+
+
+```shell
+valet link
+```
+
+It links a domain by the directory name by default, but you can specify a custom name:
+
+```shell
+valet link m246
+```
+
+### Secure the project with HTTPS
+
+I recommend for using HTTPS for all projects. And only secured Nginx config contains useful configs for Magento 2.
+
+```shell
+valet secure
+```
+
+### Generate `env.php` file
+
+If you've installed a clean project, remove the generated `env.php` file. You need this, 'cause `valet configure` command will generate a new one with useful configs for Magento 2.
+
+```shell
+rm app/etc/env.php
+```
+
+Generate `env.php` file for Magento 2.4.6+ version with Opensearch 2:
+
+```shell
+valet configure opensearch
+```
+
+Generate `env.php` file for Magento 2.4.5 version with Elasticsearch 7:
+
+```shell
+valet configure elasticsearch
+```
+
+Check the generated file, it has to contain useful configs for Magento 2 in comparison with the default one:
+
+- Disabled cache types such as `layout`, `block_html`, and `full_page`
+- Batch size for indexing (for MariaDB 10.4)
+- Search engine configs. It checks if you have installed Elasticsuite module
+- Disabled merging and minification of JS and CSS files
+- Disabled `Magento_TwoFactorAuth` module
+- Increased cookie lifetime for admin and frontend
+- Set Algolia local index
+
+### Upgrade the application
+
+```shell
+bin/magento setup:upgrade
+```
+
+### Switch to the `developer` mode
+
+```shell
+bin/magento deploy:mode:set developer
+```
+
+### Open the project in your browser
+
+https://m246.test
