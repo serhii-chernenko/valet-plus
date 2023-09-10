@@ -59,9 +59,6 @@ class Elasticsearch extends Facade
 class Opensearch extends Facade
 {
 }
-class Opensearch2 extends Facade
-{
-}
 class RabbitMq extends Facade
 {
 }
