@@ -137,16 +137,16 @@ valet db create m246
 
 ### Run search engines
 
-Elasticsearch
-
-```shell
-valet elasticsearch on
-```
-
 Opensearch
 
 ```shell
 valet opensearch on
+```
+
+Elasticsearch
+
+```shell
+valet elasticsearch on
 ```
 
 ### Get authentication keys from Magento Marketplace
