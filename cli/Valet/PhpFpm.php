@@ -503,7 +503,7 @@ class PhpFpm
      */
     public function fix($reinstall)
     {
-        // If the current php is not 7.4, link 7.4.
+        // If the current php is not 8.1, link 8.1.
         info('Check Valet+ PHP version...');
         if (!$reinstall) {
             info('Run valet fix with the --reinstall option to trigger a full reinstall of the default PHP version.');
@@ -512,15 +512,15 @@ class PhpFpm
         // If the reinstall flag was passed, uninstall PHP.
         // If any error occurs return the error for debugging purposes.
         if ($reinstall) {
-            $this->brew->ensureUninstalled(self::PHP_FORMULA_PREFIX.self::SUPPORTED_PHP_FORMULAE[self::PHP_V74_VERSION]);
-            $this->brew->ensureInstalled(self::PHP_FORMULA_PREFIX.self::SUPPORTED_PHP_FORMULAE[self::PHP_V74_VERSION]);
+            $this->brew->ensureUninstalled(self::PHP_FORMULA_PREFIX.self::SUPPORTED_PHP_FORMULAE[self::PHP_V81_VERSION]);
+            $this->brew->ensureInstalled(self::PHP_FORMULA_PREFIX.self::SUPPORTED_PHP_FORMULAE[self::PHP_V81_VERSION]);
         }
 
         // Check the current linked PHP version. If the current version is not the default version.
         // Then relink the default version.
-        if ($this->linkedPhp() !== self::PHP_V74_VERSION) {
-            $this->unlinkPhp(self::PHP_V74_VERSION);
-            $this->linkPhp(self::PHP_V74_VERSION);
+        if ($this->linkedPhp() !== self::PHP_V81_VERSION) {
+            $this->unlinkPhp(self::PHP_V81_VERSION);
+            $this->linkPhp(self::PHP_V81_VERSION);
         }
 
         // Untap the deprecated brew taps.
@@ -535,7 +535,7 @@ class PhpFpm
 
         warning(
             "Please check your linked php version, you might need to restart your terminal!" .
-            "\nLinked PHP should be php 7.4:"
+            "\nLinked PHP should be php 8.1:"
         );
         output($this->cli->runAsUser('php -v'));
     }
