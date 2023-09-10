@@ -45,37 +45,43 @@ class AbstractSearchEngine
         return $this->cli->run('docker ps | grep ' . static::CONTAINER);
     }
 
-    public function start()
+    public function start($showInfo = true)
     {
         $this->checkDocker();
         $container = $this->getContainer();
 
         if ($container) {
-            throw new DomainException(static::ENGINE . ' is already running.');
+            throw new DomainException('[' . static::ENGINE . '] is already running.');
+        }
+
+        if ($showInfo) {
+            info('[' . static::ENGINE . '] Starting');
         }
 
         $this->cli->run('docker compose -f ' . static::COMPOSE . ' up -d --build --remove-orphans');
-
-        info(static::ENGINE . ' started.');
     }
 
-    public function stop()
+    public function stop($showInfo = true)
     {
         $this->checkDocker();
         $container = $this->getContainer();
 
         if (!$container) {
-            throw new DomainException(static::ENGINE . ' is already stopped.');
+            throw new DomainException('[' . static::ENGINE . '] is already stopped.');
+        }
+
+        if ($showInfo) {
+            info('[' . static::ENGINE . '] Stopping');
         }
 
         $this->cli->run('docker compose -f ' . static::COMPOSE . ' down');
-        info(static::ENGINE . ' stopped.');
     }
 
     public function restart()
     {
-        $this->stop();
-        $this->start();
+        info('[' . static::ENGINE . '] Restarting');
+        $this->stop(false);
+        $this->start(false);
     }
 
     public function logs()
