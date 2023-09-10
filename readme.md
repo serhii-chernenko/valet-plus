@@ -434,6 +434,12 @@ You can upgrade it with the following command:
 composer global require serhii-chernenko/valet-plus:dev-feature/magento2-improvement
 ```
 
+After the upgrading, run the Valet+ service:
+
+```shell
+valet start
+```
+
 Run fix command after the upgrade:
 
 ```shell
