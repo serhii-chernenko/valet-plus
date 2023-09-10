@@ -27,7 +27,7 @@ I'm using Valet+ for my local development. I've created this fork to add some fe
 - Brew doesn't support Elasticsearch anymore. That's why I've added docker files for Elasticsearch.
 - Since the upgraded Valet+ contains docker files, I decided to add docker files for Opensearch. The latest versions of Magento 2 (2.4.6+) require Opensearch.
 - I've updated nginx.conf configs for Magento 2.
-- I've upgraded app/etc/env.php file for `valet configure` command. Now it contains a lot of useful configs for Magento 2. But now the command couldn't be used without the specified search engine such as Elasticsearch or Opensearch, .e.g `valet configure elasticsearch7`. Available options are `elasticsearch7`, `opensearch`.
+- I've upgraded app/etc/env.php file for `valet configure` command. Now it contains a lot of useful configs for Magento 2. But now the command couldn't be used without the specified search engine such as Elasticsearch or Opensearch, .e.g `valet configure elasticsearch`. Available options are `elasticsearch`, `opensearch`.
 - `my.cnf` file fixed for MariaDB 10.4 version regarding the [slow reindex issue](https://magento.stackexchange.com/questions/336813/magento-2-reindex-very-slow-in-local-server/336816#336816).
 - `env.php` file contains [batching configuration](https://developer.adobe.com/commerce/php/development/components/indexing/optimization/#batching-configuration) fixed for MariaDB 10.4 version regarding the [slow reindex issue](https://magento.stackexchange.com/questions/336813/magento-2-reindex-very-slow-in-local-server/336816#336816) as well.
 - Memory limit and max execution time increased PHP configs.
@@ -317,13 +317,13 @@ If you've installed a clean project, remove the generated `env.php` file. You ne
 rm app/etc/env.php
 ```
 
-Generate `env.php` file for Magento 2.4.6+ version with Opensearch 2:
+Generate `env.php` file for Magento 2.4.6+ version with Opensearch:
 
 ```shell
 valet configure opensearch
 ```
 
-Generate `env.php` file for Magento 2.4.5 version with Elasticsearch 7:
+Generate `env.php` file for Magento 2.4.5 version with Elasticsearch:
 
 ```shell
 valet configure elasticsearch
