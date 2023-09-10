@@ -216,6 +216,7 @@ bin/magento setup:install \
     --admin-email=admin@admin.com \
     --admin-user=admin \
     --admin-password=password123 \
+    --backend-frontname=admin \
     --language=en_US \
     --currency=USD \
     --timezone=Europe/Kyiv \
@@ -241,6 +242,7 @@ bin/magento setup:install \
     --admin-email=admin@admin.com \
     --admin-user=admin \
     --admin-password=password123 \
+    --backend-frontname=admin \
     --language=en_US \
     --currency=USD \
     --timezone=Europe/Kyiv \
