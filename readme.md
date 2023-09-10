@@ -321,6 +321,18 @@ bin/magento deploy:mode:set developer
 
 https://m246.test
 
+### Create Admin user
+
+```shell
+bin/magento admin:user:create
+```
+
+### Create a customer
+
+```shell
+magerun2 customer:create
+```
+
 ## Search Engines
 
 - Elasticsearch: http://localhost:9200
