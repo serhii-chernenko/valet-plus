@@ -12,6 +12,9 @@ class Nginx
     public $configuration;
     public $site;
     const NGINX_CONF = 'etc/nginx/nginx.conf';
+    const ORIGINAL_VENDOR = 'weprovide';
+    const MY_VENDOR = 'serhiichernenko';
+
     /**
      * @var Architecture
      */
@@ -177,5 +180,42 @@ class Nginx
     public function uninstall()
     {
         $this->stop();
+    }
+
+    public function fix()
+    {
+        $this->install();
+        $this->_fixLinkedNginxConfigs();
+        $this->restart();
+    }
+
+    private function _fixLinkedNginxConfigs()
+    {
+        $nginxDirectory = VALET_HOME_PATH . '/Nginx';
+
+        if (!$this->files->isDir($nginxDirectory)) {
+            return;
+        }
+
+        $configs = $this->files->scandir($nginxDirectory);
+        $domain = $this->configuration->read()['domain'];
+
+        foreach ($configs as $file) {
+            if (strpos($file, $domain) === false) {
+                continue;
+            }
+
+            $path = $nginxDirectory . '/' . $file;
+            $content = $this->files->get($path);
+
+            if (strpos($content, 'weprovide') === false) {
+                continue;
+            }
+
+
+            info('[nginx] Fixing ' . $file);
+            $content = str_replace(self::ORIGINAL_VENDOR, self::MY_VENDOR, $content);
+            $this->files->putAsUser($path, $content);
+        }
     }
 }

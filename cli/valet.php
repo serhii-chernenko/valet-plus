@@ -78,6 +78,7 @@ $app->command('fix [--reinstall]', function ($reinstall) {
     }
 
     PhpFpm::fix($reinstall);
+    Nginx::fix();
 })->descriptions('Fixes common installation problems that prevent Valet+ from working');
 
 /**
