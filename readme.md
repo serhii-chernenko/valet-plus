@@ -67,6 +67,7 @@ brew install composer
 
 ### Require the composer package globally
 
+You can run this command from any directory and any time, 'cause I'll be updating the package sometimes:
 ```shell
 composer global require serhii-chernenko/valet-plus:dev-feature/magento2-improvement
 ```
