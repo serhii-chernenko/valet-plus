@@ -1,5 +1,5 @@
 {
-    "name": "weprovide/valet-plus",
+    "name": "serhiichernenko/valet-plus",
     "app": "Valet+",
     "description": "Blazing fast macOS PHP development environment",
     "license": "MIT",
@@ -19,6 +19,10 @@
         {
             "name": "Johann Zelger",
             "email": "j.zelger@techdivision.com"
+        },
+        {
+            "name": "Serhii Chernenko",
+            "email": "contact@chernenko.digital"
         }
     ],
     "autoload": {
