@@ -4,6 +4,12 @@
 
 Go here for the [valet+ documentation](https://github.com/weprovide/valet-plus/wiki).
 
+## Installation
+
+```bash
+composer global require serhii-chernenko/valet-plus:dev-feature/magento2-improvement
+```
+
 ## About the current fork
 
 I'm [Serhii Chernenko](https://github.com/serhii-chernenko), and I'm a Magento 2 developer. 
