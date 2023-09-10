@@ -135,6 +135,20 @@ cd ~/dev/main
 valet db create m246
 ```
 
+### Run search engines
+
+Elasticsearch
+
+```shell
+valet elasticsearch on
+```
+
+Opensearch
+
+```shell
+valet opensearch on
+```
+
 ### Get authentication keys from Magento Marketplace
 
 Make sure that you have `auth.json` file globally in `~/.composer/` or in a project directory (that will be created next steps).
