@@ -25,6 +25,17 @@ I'm using Valet+ for my local development. I've created this fork to add some fe
 
 ## Installation
 
+### Uninstall unnecessary services
+
+```shell
+brew uninstall valet-php@7.4
+brew uninstall valet-php@8.1
+brew uninstall php
+brew uninstall httpd
+brew untap henkrehorst/php
+brew cleanup
+```
+
 ### Install PHP to macOS via Homebrew
 
 ```shell
