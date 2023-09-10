@@ -356,6 +356,8 @@ class Site
         $proxy && $stub = 'proxy.'.$stub;
         $secure && $stub = 'secure.'.$stub;
         $secure && !$notMagento && $stub = 'magento2/' . $stub;
+        $nginxConfDir = __DIR__ . '/stubs/magento2/nginx.conf' ;
+        $nginxConfDir = str_replace('Valet/', '', $nginxConfDir);
 
         $variables = [
             'VALET_HOME_PATH' => VALET_HOME_PATH,
@@ -366,7 +368,7 @@ class Site
             'VALET_KEY' => $path.'/'.$url.'.key',
             'VALET_PROXY_PASS' => $proxy,
             'VALET_PROJECT_ROOT' => $projectDir,
-            'VALET_MAGENTO2_NGINX_CONFIG' => str_replace('Valet/', '', __DIR__) . '/stubs/magento2/nginx.conf'
+            'VALET_MAGENTO2_NGINX_CONFIG' => $nginxConfDir
         ];
 
         return str_replace(
