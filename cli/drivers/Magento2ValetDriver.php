@@ -18,7 +18,7 @@ class Magento2ValetDriver extends ValetDriver
             info('env.php missing. Installing default env.php...');
             $envTemplate = $devtools->files->get(__DIR__.'/../stubs/magento2/env.php');
             $resultEnv = str_replace('DBNAME', $devtools->mysql->getDirName(), $envTemplate);
-            $resultEnv = str_replace('URL', $url, $resultEnv);
+            $resultEnv = str_replace('URL', $url . '/', $resultEnv);
             $searchEnginePort = $searchengine === 'elasticsearch7' ? '9200' : '9300';
 
             if ($this->moduleConfigExists($sitePath)) {
