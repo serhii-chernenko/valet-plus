@@ -36,7 +36,8 @@
         }
     },
     "replace": {
-        "laravel/valet": "*"
+        "laravel/valet": "*",
+        "weprovide/valet-plus": "*"
     },
     "config": {
         "platform-check": false
