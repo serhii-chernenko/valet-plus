@@ -183,7 +183,7 @@ composer create-project --repository-url=https://repo.magento.com/ magento/proje
 
 Run the [Magento 2 installation](https://experienceleague.adobe.com/docs/commerce-operations/installation-guide/composer.html?lang=en#install-the-application):
 
-For 2.4.6+ version with Opensearch 2:
+For 2.4.6+ version with Opensearch:
 
 ```shell
 bin/magento setup:install \
@@ -208,7 +208,7 @@ bin/magento setup:install \
     --opensearch-timeout=15
 ```
 
-For <= 2.4.5 version with Elasticsearch 7:
+For <= 2.4.5 version with Elasticsearch:
 
 ```shell
 bin/magento setup:install \
