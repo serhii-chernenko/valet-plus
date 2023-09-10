@@ -137,13 +137,13 @@ valet db create m246
 
 ### Run search engines
 
-Opensearch
+Opensearch:
 
 ```shell
 valet opensearch on
 ```
 
-Elasticsearch
+Elasticsearch:
 
 ```shell
 valet elasticsearch on
