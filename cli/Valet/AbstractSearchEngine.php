@@ -29,7 +29,7 @@ class AbstractSearchEngine
     {
         $docker = $this->cli->run('docker');
 
-        if (preg_match('/command not found/', $docker)) {
+        if (preg_match('/command not found|Cannot connect/', $docker)) {
             throw new DomainException('Docker is not installed or run on this machine.');
         }
 
