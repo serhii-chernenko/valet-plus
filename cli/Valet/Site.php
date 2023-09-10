@@ -366,7 +366,7 @@ class Site
             'VALET_KEY' => $path.'/'.$url.'.key',
             'VALET_PROXY_PASS' => $proxy,
             'VALET_PROJECT_ROOT' => $projectDir,
-            'VALET_MAGENTO2_NGINX_CONFIG' => __DIR__ . '/stubs/magento2/nginx.conf'
+            'VALET_MAGENTO2_NGINX_CONFIG' => str_replace('Valet/', '', __DIR__) . '/stubs/magento2/nginx.conf'
         ];
 
         return str_replace(
