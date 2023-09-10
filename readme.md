@@ -427,7 +427,8 @@ valet use php@7.4
 - [Magento 2 instance with workshops examples](https://m246.chernenko.work)
 - Email: <a href="mailto:contact@chernenko.digital">contact@chernenko.digital</a>
 
-# Support me:<br/>
+## Support me
+
 <table>
   <thead>
     <tr>
@@ -466,5 +467,5 @@ valet use php@7.4
   </tbody>
 </table>
 
-# Free course about the Front-End of Magento 2 / Adobe Commerce
+## Free course about the Front-End of Magento 2 / Adobe Commerce
 [![01  Вступ fixed](https://user-images.githubusercontent.com/28815318/230770894-119f79aa-7c93-4f18-9dbd-8fe5b060eb9f.png)](https://youtube.com/playlist?list=PLSep1ckXq6QGE1u23jafNnlT-2BOCKxVZ)
