@@ -2,4 +2,4 @@
 vendor/
 error.log
 .idea/
-data_*.*
+data

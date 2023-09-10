@@ -2,9 +2,9 @@
 
 namespace Valet;
 
-class Opensearch extends AbstractSearchEngine
+class Opensearch2 extends AbstractSearchEngine
 {
-    const ENGINE = 'opensearch@1.2';
-    const CONTAINER = 'valet-opensearch_1.2.0';
+    const ENGINE = 'opensearch';
+    const CONTAINER = 'valet-opensearch';
     const COMPOSE = __DIR__ . '/../engines/opensearch/compose.yaml';
 }

@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   elasticsearch:
-    container_name: valet-elasticsearch_7.17.12
+    container_name: valet-elasticsearch
     ports:
       - "9200:9200"
     build:
@@ -26,4 +26,4 @@ services:
       - "index.blocks.read_only_allow_delete"
     restart: 'always'
     volumes:
-      - ./data_7.17.12:/usr/share/elasticsearch/data
+      - ./data:/usr/share/elasticsearch/data

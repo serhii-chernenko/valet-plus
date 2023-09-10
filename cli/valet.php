@@ -313,7 +313,6 @@ if (is_dir(VALET_HOME_PATH)) {
             Mailhog::restart();
             Elasticsearch::restart();
             Opensearch::restart();
-            Opensearch2::restart();
             RabbitMq::restart();
             Varnish::restart();
             info('Valet services have been started.');
@@ -349,9 +348,6 @@ if (is_dir(VALET_HOME_PATH)) {
                 case 'opensearch':
                     Opensearch::restart();
                     break;
-                case 'opensearch2':
-                    Opensearch2::restart();
-                    break;
                 case 'rabbitmq':
                     RabbitMq::restart();
                     break;
@@ -378,7 +374,6 @@ if (is_dir(VALET_HOME_PATH)) {
             Mailhog::restart();
             Elasticsearch::restart();
             Opensearch::restart();
-            Opensearch2::restart();
             RabbitMq::restart();
             Varnish::restart();
             info('Valet services have been started.');
@@ -408,9 +403,6 @@ if (is_dir(VALET_HOME_PATH)) {
                 case 'opensearch':
                     Opensearch::restart();
                     break;
-                case 'opensearch2':
-                    Opensearch2::restart();
-                    break;
                 case 'rabbitmq':
                     RabbitMq::restart();
                     break;
@@ -436,7 +428,6 @@ if (is_dir(VALET_HOME_PATH)) {
             Mailhog::stop();
             Elasticsearch::stop();
             Opensearch::stop();
-            Opensearch2::stop();
             RabbitMq::stop();
             Varnish::stop();
             info('Valet services have been stopped.');
@@ -466,9 +457,6 @@ if (is_dir(VALET_HOME_PATH)) {
                 case 'opensearch':
                     Opensearch::stop();
                     break;
-                case 'opensearch2':
-                    Opensearch2::stop();
-                    break;
                 case 'rabbitmq':
                     RabbitMq::stop();
                     break;
@@ -496,7 +484,6 @@ if (is_dir(VALET_HOME_PATH)) {
         Mailhog::uninstall();
         Elasticsearch::stop();
         Opensearch::stop();
-        Opensearch2::stop();
         RabbitMq::uninstall();
         Varnish::uninstall();
 
@@ -519,27 +506,24 @@ if (is_dir(VALET_HOME_PATH)) {
      */
     $app->command('use [service] [targetVersion]', function ($service, $targetVersion) {
         $supportedServices = [
-            'php'           => 'php',
-            'opensearch'    => 'opensearch',
-            'os'            => 'opensearch',
+            'php' => 'php'
         ];
+
         if (is_numeric($service)) {
             $targetVersion = $service;
             $service       = 'php';
         }
+
         $service = (isset($supportedServices[$service]) ? $supportedServices[$service] : false);
 
         switch ($service) {
             case 'php':
                 PhpFpm::switchTo($targetVersion);
                 break;
-            case 'opensearch':
-                Opensearch::switchTo($targetVersion);
-                break;
             default:
                 throw new Exception('Service to switch version of not supported. Supported services: ' . implode(', ', array_unique(array_values($supportedServices))));
         }
-    })->descriptions('Switch between versions of PHP (default) or Opensearch');
+    })->descriptions('Switch between versions of PHP');
 
     /**
      * Create database
@@ -674,14 +658,12 @@ if (is_dir(VALET_HOME_PATH)) {
     })->descriptions('Database commands (list/ls, create, drop, reset, open, import, reimport, export/dump)');
 
     $app->command('configure [searchengine]', function ($input, $searchengine) {
-        $engines = ['elasticsearch7', 'opensearch', 'opensearch2'];
+        $engines = ['elasticsearch7', 'opensearch'];
 
         if (!$searchengine || $searchengine === 'es' || $searchengine === 'elasticsearch' || $searchengine === 'elastic') {
             $searchengine = 'elasticsearch7';
         } else if ($searchengine === 'os') {
             $searchengine = 'opensearch';
-        } else if ($searchengine === 'os2') {
-            $searchengine = 'opensearch2';
         }
 
         if (!in_array($searchengine, $engines)) {
@@ -689,7 +671,7 @@ if (is_dir(VALET_HOME_PATH)) {
         }
 
         DevTools::configure($searchengine);
-    })->descriptions('Configure application connection settings. Supported search engines: elasticsearch7, opensearch, opensearch2');
+    })->descriptions('Configure application connection settings. Supported search engines: elasticsearch7, opensearch');
 
     $app->command('xdebug [mode] [--remote_autostart=]', function ($input, $mode) {
         $modes = ['on', 'enable', 'off', 'disable'];
@@ -801,28 +783,6 @@ if (is_dir(VALET_HOME_PATH)) {
             return Opensearch::restart();
         } else if ($mode === 'logs') {
             return Opensearch::logs();
-        }
-
-        throw new Exception('Sub-command not found. Available: on, enable, off, disable, restart, logs');
-    })->descriptions('Enable / disable Opensearch v1 for Magento < 2.4.6');
-
-    $app->command('opensearch2 [mode]', function ($mode) {
-        $modes = ['on', 'enable', 'off', 'disable', 'restart', 'logs'];
-        $enable = $mode === 'on' || $mode === 'enable';
-        $disable = $mode === 'off' || $mode === 'disable';
-
-        if (!in_array($mode, $modes)) {
-            throw new Exception('Mode not found. Available modes: ' . implode(', ', $modes));
-        }
-
-        if ($enable) {
-            return Opensearch2::start();
-        } else if ($disable) {
-            return Opensearch2::stop();
-        } else if ($mode === 'restart') {
-            return Opensearch2::restart();
-        } else if ($mode === 'logs') {
-            return Opensearch2::logs();
         }
 
         throw new Exception('Sub-command not found. Available: on, enable, off, disable, restart, logs');

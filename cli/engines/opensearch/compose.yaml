@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   opensearch:
-    container_name: valet-opensearch_1.2.0
+    container_name: valet-opensearch
     ports:
       - "9300:9200"
     build:
@@ -27,4 +27,4 @@ services:
       - "index.blocks.read_only_allow_delete"
     restart: 'always'
     volumes:
-      - ./data_1.2.0:/usr/share/opensearch/data
+      - ./data:/usr/share/opensearch/data

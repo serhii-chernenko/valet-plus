@@ -19,18 +19,7 @@ class Magento2ValetDriver extends ValetDriver
             $envTemplate = $devtools->files->get(__DIR__.'/../stubs/magento2/env.php');
             $resultEnv = str_replace('DBNAME', $devtools->mysql->getDirName(), $envTemplate);
             $resultEnv = str_replace('URL', $url, $resultEnv);
-
-            switch ($searchengine) {
-                case 'opensearch':
-                    $searchEnginePort = '9300';
-                    break;
-                case 'opensearch2':
-                    $searchEnginePort = '9400';
-                    break;
-                default:
-                    $searchEnginePort = '9200';
-                    break;
-            }
+            $searchEnginePort = $searchengine === 'elasticsearch7' ? '9200' : '9300';
 
             if ($this->moduleConfigExists($sitePath)) {
                 info('Set search engine...');
@@ -100,7 +89,7 @@ class Magento2ValetDriver extends ValetDriver
         $this->loadServerEnvironmentVariables($sitePath, $siteName);
         $isMagentoStatic = false;
         $resource = $uri;
-        
+
         if (strpos($uri, '/errors') === 0 && file_exists($sitePath.'/pub'.$uri)) {
             return $sitePath.'/pub'.$uri;
         }
@@ -160,7 +149,7 @@ class Magento2ValetDriver extends ValetDriver
         if (isset($_GET['profile'])) {
             $_SERVER['MAGE_PROFILER'] = 'html';
         }
-        
+
         if (strpos($uri, '/errors') === 0) {
             $file = $sitePath . '/pub' . $uri;
             if (file_exists($file)) {

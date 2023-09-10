@@ -1,4 +1,4 @@
-FROM opensearchproject/opensearch:1.2.0
+FROM opensearchproject/opensearch:2.5.0
 
 ENV cluster.name=docker-cluster
 ENV bootstrap.memory_lock=true
