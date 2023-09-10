@@ -276,6 +276,18 @@ Run the composer installation:
 composer install
 ```
 
+Import a database dump to the created database. 
+
+```shell
+valet db import dump.sql
+```
+
+It supports GZIP files. I recommend using them for big dumps:
+
+```shell
+valet db import dump.sql.gz
+```
+
 ### Link the project directory to Valet+
 
 ```shell
@@ -290,7 +302,7 @@ valet link m246
 
 ### Secure the project with HTTPS
 
-I recommend for using HTTPS for all projects. And only secured Nginx config contains useful configs for Magento 2.
+I recommend using HTTPS for all projects. And only secured Nginx config contains useful configs for Magento 2.
 
 ```shell
 valet secure
@@ -352,6 +364,12 @@ bin/magento admin:user:create
 
 ```shell
 magerun2 customer:create
+```
+
+### Install sample data
+
+```shell
+bin/magento sampledata:deploy
 ```
 
 ## Search Engines
