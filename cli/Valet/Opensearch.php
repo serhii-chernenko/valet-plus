@@ -2,7 +2,7 @@
 
 namespace Valet;
 
-class Opensearch2 extends AbstractSearchEngine
+class Opensearch extends AbstractSearchEngine
 {
     const ENGINE = 'opensearch';
     const CONTAINER = 'valet-opensearch';
