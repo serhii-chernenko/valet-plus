@@ -32,6 +32,9 @@ brew uninstall valet-php@7.4
 brew uninstall valet-php@8.1
 brew uninstall php
 brew uninstall httpd
+brew uninstall elasticsearch
+brew uninstall elasticsearch-full
+brew uninstall opensearch
 brew untap henkrehorst/php
 brew cleanup
 ```
