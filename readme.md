@@ -174,10 +174,15 @@ cd $_
 
 Require [Magento 2 via Composer](https://experienceleague.adobe.com/docs/commerce-operations/installation-guide/composer.html?lang=en#get-the-metapackage):
 
+Community Edition:
+
 ```shell
-# Community Edition
 composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition .
-# Commerce (Enterprise) Edition
+```
+
+Commerce (Enterprise) Edition:
+
+```shell
 composer create-project --repository-url=https://repo.magento.com/ magento/project-enterprise-edition .
 ```
 
