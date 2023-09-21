@@ -74,7 +74,7 @@ brew install composer
 You can run this command from any directory and any time, 'cause I'll be updating the package sometimes:
 
 ```shell
-composer global require serhii-chernenko/valet-plus:dev-feature/magento2-improvement
+composer global require serhiichernenko/valet-plus:dev-feature/magento2-improvement
 ```
 
 Make `composer` command executable globally:
