@@ -22,6 +22,8 @@ I'm using Valet+ for my local development. I've created this fork to add some fe
 - `env.php` file contains [batching configuration](https://developer.adobe.com/commerce/php/development/components/indexing/optimization/#batching-configuration) fixed for MariaDB 10.4 version regarding the [slow reindex issue](https://magento.stackexchange.com/questions/336813/magento-2-reindex-very-slow-in-local-server/336816#336816) as well.
 - Memory limit and max execution time increased PHP configs.
 - `http2` directive upgraded for nginx configs.
+- `valet share` command fixed.
+- Ngrok upgraded from 2 to 3 version.
 
 ## Installation
 
@@ -35,6 +37,7 @@ brew uninstall httpd
 brew uninstall elasticsearch
 brew uninstall elasticsearch-full
 brew uninstall opensearch
+brew uninstall ngrok
 brew untap henkrehorst/php
 brew cleanup
 ```
@@ -124,6 +127,16 @@ valet install
 # With Mysql 8
 valet install --with-mysql-8
 ```
+
+### Make `ngrok` command executable globally
+
+Add:
+
+```bash
+export PATH="$HOME/.composer/vendor/serhiichernenko/valet-plus/bin:$PATH"
+```
+
+to `~/.zshrc` (for zsh) or `~/.bash_profile` (for bash).
 
 ## Magento 2 Installation
 
