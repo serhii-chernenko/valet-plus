@@ -50,11 +50,6 @@ then
     sudo -u $(logname) "$DIR/bin/ngrok" http "$HOST.$DOMAIN:80" --host-header=rewrite ${*:2}
     exit
 
-elif [[ "$1" = "ngrok" ]]
-then
-    sudo -u $(logname) "$DIR/bin/ngrok" "$@"
-    exit
-
 # Finally, for every other command we will just proxy into the PHP tool
 # and let it handle the request. These are commands which can be run
 # without sudo and don't require taking over terminals like Ngrok.
