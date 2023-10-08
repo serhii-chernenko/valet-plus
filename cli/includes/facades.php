@@ -80,9 +80,6 @@ class DnsMasq extends Facade
 class Filesystem extends Facade
 {
 }
-class Ngrok extends Facade
-{
-}
 class PhpFpm extends Facade
 {
 }

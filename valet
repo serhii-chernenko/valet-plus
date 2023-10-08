@@ -47,8 +47,6 @@ then
         fi
     done
 
-    # Fetch Ngrok URL In Background...
-    bash "$DIR/cli/scripts/fetch-share-url.sh" &
     sudo -u $(logname) "$DIR/bin/ngrok" http "$HOST.$DOMAIN:80" --host-header=rewrite ${*:2}
     exit
 

@@ -280,13 +280,6 @@ if (is_dir(VALET_HOME_PATH)) {
     })->descriptions('Generate a publicly accessible URL for your project');
 
     /**
-     * Echo the currently tunneled URL.
-     */
-    $app->command('fetch-share-url', function () {
-        output(Ngrok::currentTunnelUrl());
-    })->descriptions('Get the URL to the current Ngrok tunnel');
-
-    /**
      * Start the daemon services.
      */
     $app->command('start [services]*', function ($services) {
