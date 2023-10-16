@@ -28,7 +28,9 @@ I'm using Valet+ for my local development. I've created this fork to add some fe
 
 ## Installation
 
-### Install Homebrew (if it doesn't exist)
+### Install Homebrew
+
+> Skip this step if you have it already.
 
 ```shell
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -48,6 +50,40 @@ brew uninstall ngrok
 brew untap henkrehorst/php
 brew cleanup
 ```
+
+### Configure GIT
+
+> Skip this step if you have it already.
+
+#### Installation
+
+```shell
+brew install git
+```
+
+#### Generate SSH keys
+
+```shell
+ssh-keygen
+```
+
+The generate keys have to be available in the directory: `~/.ssh/`.
+
+#### Add these keys to your GitHub account
+
+Get the content of your public key:
+
+```shell
+# If the `pbcopy` command is available
+cat ~/.ssh/id_rsa.pub | pbcopy
+# Or just
+cat ~/.ssh/id_rsa.pub
+# and copy the output manually from your terminal
+```
+
+Create a new key in your GitHub account:
+
+[SSH and GPG keys](https://github.com/settings/keys)
 
 ### Install PHP to macOS via Homebrew
 
