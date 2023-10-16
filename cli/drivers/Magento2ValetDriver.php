@@ -4,25 +4,25 @@ class Magento2ValetDriver extends ValetDriver
 {
     public function configure($devtools, $url, $searchengine)
     {
-        info('Configuring Magento 2...');
+        info('Configuring Magento 2');
         $devtools->cli->quietlyAsUser('chmod +x bin/magento');
 
         $sitePath = getcwd();
 
         if (!$this->moduleConfigExists($sitePath)) {
-            info('config.php missing. Enabling all modules...');
+            info('config.php missing. Enabling all modules');
             $devtools->cli->quietlyAsUser('bin/magento module:enable --all');
         }
 
         if (!$this->envExists($sitePath)) {
-            info('env.php missing. Installing default env.php...');
+            info('env.php missing. Installing default env.php');
             $envTemplate = $devtools->files->get(__DIR__.'/../stubs/magento2/env.php');
             $resultEnv = str_replace('DBNAME', $devtools->mysql->getDirName(), $envTemplate);
             $resultEnv = str_replace('URL', $url . '/', $resultEnv);
             $searchEnginePort = $searchengine === 'elasticsearch7' ? '9200' : '9300';
 
             if ($this->moduleConfigExists($sitePath)) {
-                info('Set search engine...');
+                info('Set search engine');
                 $resultEnv = str_replace(
                     'SEARCH_ENGINE',
                     preg_match(
@@ -41,7 +41,8 @@ class Magento2ValetDriver extends ValetDriver
             $devtools->files->putAsUser($sitePath . '/app/etc/env.php', $resultEnv);
         }
 
-        info('Flushing cache...');
+        info('Flushing cache');
+        $devtools->cli->quietlyAsUser('bin/magento app:config:import');
         $devtools->cli->quietlyAsUser('bin/magento cache:flush');
 
         info('Configured Magento 2');

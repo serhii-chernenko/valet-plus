@@ -25,7 +25,7 @@ class AbstractSearchEngine
         $this->cli = $cli;
     }
 
-    private function checkDocker()
+    public function checkDocker()
     {
         $docker = $this->cli->run('docker');
 
@@ -40,7 +40,7 @@ class AbstractSearchEngine
         }
     }
 
-    private function getContainer()
+    public function getContainer()
     {
         return $this->cli->run('docker ps | grep ' . static::CONTAINER);
     }

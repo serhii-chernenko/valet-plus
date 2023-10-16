@@ -1013,6 +1013,63 @@ if (is_dir(VALET_HOME_PATH)) {
         }
 
     })->descriptions('Open the logs for the specified service. (php, php-fpm, nginx, mysql, mailhog, redis)');
+
+    $app->command('m2 [cmd] [edition] [version]', function ($input, $output, $cmd, $edition, $version) {
+        $commands = ['install'];
+
+        if (!in_array($cmd, $commands)) {
+            throw new Exception('Command not found. Available commands: ' . implode(', ', $commands));
+        }
+
+        require realpath(__DIR__ . '/drivers/require.php');
+
+        $cliClass = new \Valet\CommandLine();
+        $filesClass = new \Valet\Filesystem();
+        $archClass = new \Valet\Architecture($cliClass);
+        $configClass = new \Valet\Configuration($archClass, $filesClass);
+        $siteClass = new \Valet\Site($configClass, $cliClass, $filesClass);
+        $mysqlClass = new \Valet\Mysql(
+            $archClass,
+            new \Valet\Brew($cliClass, $filesClass),
+            $cliClass,
+            $filesClass,
+            $configClass,
+            $siteClass
+        );
+
+        $m2 = new \Valet\Magento2(
+            $this,
+            $cliClass,
+            new \Valet\Opensearch($cliClass),
+            new \Valet\Elasticsearch($cliClass),
+            $filesClass,
+            new \Valet\Mysql(
+                $archClass,
+                new \Valet\Brew($cliClass, $filesClass),
+                $cliClass,
+                $filesClass,
+                $configClass,
+                $siteClass
+            ),
+            $configClass,
+            $siteClass,
+            new \Valet\DevTools(
+                $archClass,
+                new \Valet\Brew($cliClass, $filesClass),
+                $cliClass,
+                $filesClass,
+                $configClass,
+                $siteClass,
+                $mysqlClass
+            )
+        );
+
+        switch ($cmd) {
+            case 'install':
+                $m2->install($input, $output, $edition, $version);
+                break;
+        }
+    })->descriptions('Magento 2 util. Available commands: install (fresh magento)');
 }
 
 /**

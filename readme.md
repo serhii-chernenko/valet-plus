@@ -27,6 +27,12 @@ I'm using Valet+ for my local development. I've created this fork to add some fe
 
 ## Installation
 
+### Install Homebrew (if it doesn't exist)
+
+```shell
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
 ### Uninstall unnecessary services
 
 ```shell
@@ -138,7 +144,66 @@ export PATH="$HOME/.composer/vendor/serhiichernenko/valet-plus/bin:$PATH"
 
 to `~/.zshrc` (for zsh) or `~/.bash_profile` (for bash).
 
-## Magento 2 Installation
+## Magento 2 Clean Auto-Installation
+
+### Create directory
+
+Choose a directory where you have your projects:
+
+```shell
+cd ~/dev/main
+```
+
+Create a new project directory:
+
+```shell
+mkdir m246
+```
+
+Go to the directory:
+
+```shell
+cd $_
+# or
+cd m246
+```
+
+### Run installation
+
+Command syntax:
+```shell
+valet m2 install [edition (optional)] [version (optional)]
+```
+
+Examples:
+
+```shell
+# Default one
+valet m2 install
+
+# It equals the latest stable Community Edition version
+valet m2 install community 2.4.6-p2
+
+# Install Open-Source (Community) Edition
+valet m2 install community
+valet m2 install community 2.4.6-p2
+
+# Install Commerce (Enterprise) Edition
+valet m2 install enterprise
+valet m2 install enterprise 2.4.6-p2
+
+# Install a specific version
+valet m2 install community 2.4.5-p4
+valet m2 install enterprise 2.4.5-p4
+```
+
+### Important
+
+I don't recommend trying to install a version **< 2.4.4**.
+
+I'm sure you'll have a lot of errors with the installation.
+
+## Magento 2 Manual Installation
 
 ### Add Magento 2 files
 
