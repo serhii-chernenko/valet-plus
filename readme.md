@@ -24,6 +24,7 @@ I'm using Valet+ for my local development. I've created this fork to add some fe
 - `http2` directive upgraded for nginx configs.
 - `valet share` command fixed.
 - Ngrok upgraded from 2 to 3 version.
+- `m2 install` command. Install Magento 2 in one command!
 
 ## Installation
 
