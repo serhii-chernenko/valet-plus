@@ -81,7 +81,7 @@ class PhpFpm
     public function install()
     {
         if (!$this->hasInstalledPhp()) {
-            $this->brew->ensureInstalled($this->getFormulaName(self::PHP_V74_VERSION));
+            $this->brew->ensureInstalled($this->getFormulaName(self::PHP_V81_VERSION));
         }
 
         // Untap the deprecated brew taps.
