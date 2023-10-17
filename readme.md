@@ -153,6 +153,8 @@ Composer version 2.5.8 2023-06-09 17:13:21
 
 Install [Docker Desktop](https://www.docker.com/products/docker-desktop/).
 
+> If you have macOS, you might try to have a look at [OrbStack](https://orbstack.dev/) instead of Docker Desktop. This tool has to be faster and easier to use than Docker Desktop. But it absolutely up to you.
+
 ### Install Valet+ with MariabDB 10.4
 
 Check for common issues preventing Valet+ from installing
