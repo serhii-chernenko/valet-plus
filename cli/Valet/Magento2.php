@@ -52,21 +52,27 @@ class Magento2
 
     public function install($input, $output, $edition, $version)
     {
-        $latest = '2.4.6-p2';
+        $lts = '2.4.6-p3';
 
         if (!$version) {
-            $version = $latest;
+            $version = $lts;
         }
 
         $versions = [
-            $latest,
+            '2.4.7-beta2',
+            '2.4.7-beta1',
+            $lts,
+            '2.4.6-p2',
             '2.4.6-p1',
             '2.4.6',
+            '2.4.5-p5',
             '2.4.5-p4',
             '2.4.5-p3',
             '2.4.5-p2',
             '2.4.5-p1',
             '2.4.5',
+            '2.4.4-p6',
+            '2.4.4-p5',
             '2.4.4-p4',
             '2.4.4-p3',
             '2.4.4-p2',
