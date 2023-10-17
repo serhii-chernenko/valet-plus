@@ -535,7 +535,7 @@ class PhpFpm
 
         warning(
             "Please check your linked php version, you might need to restart your terminal!" .
-            "\nLinked PHP should be php 8.1:"
+            "\nLinked PHP should be php@8.1:"
         );
         output($this->cli->runAsUser('php -v'));
     }
