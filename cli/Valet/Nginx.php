@@ -208,7 +208,7 @@ class Nginx
             $path = $nginxDirectory . '/' . $file;
             $content = $this->files->get($path);
 
-            if (strpos($content, 'weprovide') === false) {
+            if (strpos($content, self::ORIGINAL_VENDOR) === false) {
                 continue;
             }
 
