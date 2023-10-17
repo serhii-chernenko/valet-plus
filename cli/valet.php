@@ -43,7 +43,8 @@ $app->command('install [--with-mariadb] [--with-mysql-8]', function ($withMariad
     if ($withMariadb && $withMysql8) {
         throw new Exception('Cannot install Valet+ with both MariaDB and Mysql8, please pick one.');
     }
-    $dbVersion = $withMariadb ? 'mariadb10.4' : 'mysql@5.7';
+
+    $dbVersion = $withMariadb ? 'mariadb@10.4' : 'mysql@5.7';
     $dbVersion = $withMysql8 ? 'mysql' : $dbVersion;
 
     Nginx::stop();
