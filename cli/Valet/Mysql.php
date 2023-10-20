@@ -14,6 +14,7 @@ class Mysql
     const MAX_FILES_CONF = '/Library/LaunchDaemons/limit.maxfiles.plist';
     const MYSQL_DIR = 'var/mysql';
     const MYSQL_ROOT_PASSWORD = 'root';
+    const MARIADB_VERSION = 'mariadb@10.4';
 
     /**
      * @var Brew
@@ -131,7 +132,7 @@ class Mysql
      */
     public function supportedVersions()
     {
-        return ['mysql', 'mariadb@10.4', 'mysql@5.7'];
+        return ['mysql', self::MARIADB_VERSION, 'mysql@5.7'];
     }
 
     /**
@@ -187,7 +188,7 @@ class Mysql
         $contents = $this->files->get(__DIR__ . '/../stubs/my.cnf');
 
         // MariaDB + Mysql 8 specific my.cnf changes
-        if ($type === 'mariadb' || $type === 'mysql') {
+        if ($type === self::MARIADB_VERSION || $type === 'mysql') {
             $contents = str_replace('show_compatibility_56=ON', '', $contents);
         }
 
