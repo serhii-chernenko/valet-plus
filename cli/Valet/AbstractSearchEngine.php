@@ -50,7 +50,7 @@ class AbstractSearchEngine
         $this->checkDocker();
         $container = $this->getContainer();
 
-        if ($container && !$showInfo) {
+        if ($container && $showInfo) {
             throw new DomainException('[' . static::ENGINE . '] is already running.');
         }
 
@@ -66,7 +66,7 @@ class AbstractSearchEngine
         $this->checkDocker();
         $container = $this->getContainer();
 
-        if (!$container && !$showInfo) {
+        if (!$container && $showInfo) {
             throw new DomainException('[' . static::ENGINE . '] is already stopped.');
         }
 
