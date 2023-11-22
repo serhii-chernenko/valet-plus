@@ -758,7 +758,11 @@ if (is_dir(VALET_HOME_PATH)) {
         }
 
         throw new Exception('Sub-command not found. Available: on, enable, off, disable, restart, logs');
-    })->descriptions('Enable / disable Elasticsearch');
+    })->descriptions('Enable / disable Elasticsearch  for Magento < 2.4.6');
+
+    $app->command('es [mode]', function ($mode) {
+        $this->runCommand('elasticsearch ' . $mode);
+    })->descriptions('Enable / disable Elasticsearch for Magento < 2.4.6');
 
     $app->command('opensearch [mode]', function ($mode) {
         $modes = ['on', 'enable', 'off', 'disable', 'restart', 'logs'];
@@ -780,6 +784,10 @@ if (is_dir(VALET_HOME_PATH)) {
         }
 
         throw new Exception('Sub-command not found. Available: on, enable, off, disable, restart, logs');
+    })->descriptions('Enable / disable Opensearch v2 for Magento 2.4.6+');
+
+    $app->command('os [mode]', function ($mode) {
+        $this->runCommand('opensearch ' . $mode);
     })->descriptions('Enable / disable Opensearch v2 for Magento 2.4.6+');
 
     $app->command('rabbitmq [mode]', function ($mode) {

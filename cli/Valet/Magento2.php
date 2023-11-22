@@ -153,10 +153,12 @@ class Magento2
             throw new Exception('Composer not found');
         }
 
+        $cmd = 'composer -V';
         info('- Composer found');
-        output('- Checking Composer version (has to be V2)');
+        output('- Checking Composer version (has to be V2). Running command:');
+        output('- ' . $cmd);
 
-        $version = $this->cli->runAsUser('composer -V');
+        $version = $this->cli->runAsUser($cmd);
         $isVersionOld = preg_match('/1\.\d+\.\d+/', $version);
 
         if ($isVersionOld) {
@@ -165,7 +167,7 @@ class Magento2
             $this->cli->quietlyAsUser('composer self-update --2');
         }
 
-        info('- ' . trim($this->cli->runAsUser('composer -V')));
+        info('- ' . trim($this->cli->runAsUser($cmd)));
     }
 
     private function checkAuthJson()
@@ -389,9 +391,9 @@ class Magento2
 
         $projectName = basename($path);
 
-//        $this->unsecure();
-//        $this->unlink();
-//        $this->dropDb($input, $output, $projectName);
+        $this->unsecure();
+        $this->unlink();
+        $this->dropDb($input, $output, $projectName);
         $this->deleteFiles($input, $output, $path);
 
         info(PHP_EOL . 'Magento 2 uninstalled successfully');
