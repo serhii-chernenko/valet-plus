@@ -367,4 +367,119 @@ class Magento2
         output('valet ' . $cmd);
         $this->app->runCommand($cmd);
     }
+
+    public function uninstall($input, $output)
+    {
+        $path = getcwd();
+
+        info('Uninstalling Magento 2');
+        output('- Directory: ' . $path);
+
+        $helper = $this->app->getHelperSet()->get('question');
+        $question = new ConfirmationQuestion(PHP_EOL . 'Continue? [Y/n] ', true);
+
+        if (!$helper->ask($input, $output, $question)) {
+            warning('Aborted');
+            return;
+        }
+
+        if (!$this->isMagento2Dir($path)) {
+            throw new Exception('The current directory is not a Magento 2 project.');
+        }
+
+        $projectName = basename($path);
+
+//        $this->unsecure();
+//        $this->unlink();
+//        $this->dropDb($input, $output, $projectName);
+        $this->deleteFiles($input, $output, $path);
+
+        info(PHP_EOL . 'Magento 2 uninstalled successfully');
+    }
+
+    private function isMagento2Dir($path)
+    {
+        info(PHP_EOL . 'Checking if the current directory is a Magento 2 project');
+        return $this->files->exists($this->files->realpath($path . '/bin/magento'));
+    }
+
+    private function unsecure()
+    {
+        $cmd = 'unsecure';
+        info(PHP_EOL . 'Running command:');
+        output('valet ' . $cmd);
+        $this->app->runCommand($cmd);
+    }
+
+    private function unlink()
+    {
+        $cmd = 'unlink';
+        info(PHP_EOL . 'Running command:');
+        output('valet ' . $cmd);
+        $this->app->runCommand($cmd);
+    }
+
+    private function dropDb($input, $output, $projectName)
+    {
+        info(PHP_EOL . 'Dropping database');
+        $isDbExisting = $this->mysql->isDatabaseExists($projectName);
+
+        if (!$isDbExisting) {
+            warning('Database "' . $projectName . '" not found.');
+            return;
+        }
+
+        $helper = $this->app->getHelperSet()->get('question');
+        $question = new ConfirmationQuestion(
+            PHP_EOL . 'Do you want to drop the "' . $projectName . '" database? [Y/n] ',
+            true
+        );
+
+        if (!$helper->ask($input, $output, $question)) {
+            warning('Aborted');
+
+            return;
+        }
+
+
+        $cmd = 'valet db drop ' . $projectName;
+        info(PHP_EOL . 'Running command:');
+        output($cmd);
+        $dropped = $this->mysql->dropDatabase($projectName);
+
+        if (!$dropped) {
+            throw new Exception('Error dropping "' . $projectName . '" database');
+        }
+
+        info('Database "' . $projectName . 'dropped successfully');
+    }
+
+    private function deleteFiles($input, $output, $path)
+    {
+        $helper = $this->app->getHelperSet()->get('question');
+        $question = new ConfirmationQuestion(
+            PHP_EOL . 'Do you want to delete the directory:' .
+            PHP_EOL . $path .
+            PHP_EOL . '? [Y/n] ',
+            true
+        );
+
+        if (!$helper->ask($input, $output, $question)) {
+            warning('Aborted');
+
+            return;
+        }
+
+        $fs = new SymfonyFilesystem();
+        $cmd = 'rm -rf ' . $path;
+        info(PHP_EOL . 'Running command:');
+        output($cmd);
+
+        try {
+            $fs->remove($this->files->realpath($path));
+            info('Directory "' . PHP_EOL . $path . PHP_EOL . '" deleted successfully');
+        } catch (IOExceptionInterface $exception) {
+            echo "An error occurred while removing your directory at " . $exception->getPath();
+        }
+    }
 }

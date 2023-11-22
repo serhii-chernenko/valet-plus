@@ -1016,7 +1016,7 @@ if (is_dir(VALET_HOME_PATH)) {
     })->descriptions('Open the logs for the specified service. (php, php-fpm, nginx, mysql, mailhog, redis)');
 
     $app->command('m2 [cmd] [edition] [version]', function ($input, $output, $cmd, $edition, $version) {
-        $commands = ['install'];
+        $commands = ['install', 'uninstall'];
 
         if (!in_array($cmd, $commands)) {
             throw new Exception('Command not found. Available commands: ' . implode(', ', $commands));
@@ -1068,6 +1068,9 @@ if (is_dir(VALET_HOME_PATH)) {
         switch ($cmd) {
             case 'install':
                 $m2->install($input, $output, $edition, $version);
+                break;
+            case 'uninstall':
+                $m2->uninstall($input, $output);
                 break;
         }
     })->descriptions('Magento 2 util. Available commands: install (fresh magento)');
