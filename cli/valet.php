@@ -420,8 +420,8 @@ if (is_dir(VALET_HOME_PATH)) {
             Mysql::stop();
             RedisTool::stop();
             Mailhog::stop();
-            Elasticsearch::stop();
-            Opensearch::stop();
+            Elasticsearch::stop(true, false);
+            Opensearch::stop(true, false);
             RabbitMq::stop();
             Varnish::stop();
             info('Valet services have been stopped.');

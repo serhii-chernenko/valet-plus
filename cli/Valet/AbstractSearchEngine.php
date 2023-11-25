@@ -45,12 +45,12 @@ class AbstractSearchEngine
         return $this->cli->run('docker ps | grep ' . static::CONTAINER);
     }
 
-    public function start($showInfo = true)
+    public function start($showInfo = true, $showError = true)
     {
         $this->checkDocker();
         $container = $this->getContainer();
 
-        if ($container && $showInfo) {
+        if ($container && $showError) {
             throw new DomainException('[' . static::ENGINE . '] is already running.');
         }
 
@@ -61,12 +61,12 @@ class AbstractSearchEngine
         $this->cli->run('docker compose -f ' . static::COMPOSE . ' up -d --build --remove-orphans');
     }
 
-    public function stop($showInfo = true)
+    public function stop($showInfo = true, $showError = true)
     {
         $this->checkDocker();
         $container = $this->getContainer();
 
-        if (!$container && $showInfo) {
+        if (!$container && $showError) {
             throw new DomainException('[' . static::ENGINE . '] is already stopped.');
         }
 
@@ -80,8 +80,8 @@ class AbstractSearchEngine
     public function restart()
     {
         info('[' . static::ENGINE . '] Restarting');
-        $this->stop(false);
-        $this->start(false);
+        $this->stop(false, false);
+        $this->start(false, false);
     }
 
     public function logs()
