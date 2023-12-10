@@ -26,7 +26,7 @@ class Magento2ValetDriver extends ValetDriver
                 $resultEnv = str_replace(
                     'SEARCH_ENGINE',
                     preg_match(
-                        '/["\']Smile_ElasticsuiteCore["\']\s*=>\s*["\']?1["\']?/',
+                        '/["\'].*Elasticsuite.*["\']\s*=>\s*["\']?1["\']?/i',
                         $devtools->files->get($sitePath . '/app/etc/config.php')
                     ) ? 'elasticsuite' : $searchengine,
                     $resultEnv
