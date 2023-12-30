@@ -372,6 +372,11 @@ class Magento2
             info(PHP_EOL . 'Running command:');
             output($cmd);
             $this->cli->quietlyAsUser($cmd);
+
+            $cmd = 'bin/magento setup:upgrade';
+            info(PHP_EOL . 'Running command:');
+            output($cmd);
+            $this->cli->quietlyAsUser($cmd);
         } else {
             warning('Aborted');
         }
