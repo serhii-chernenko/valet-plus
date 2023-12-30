@@ -362,7 +362,7 @@ class Magento2
         }
 
         output(PHP_EOL . 'If you want to set up sample data, run the command:');
-        info(PHP_EOL . 'bin/magento setup:upgrade');
+        info('bin/magento setup:upgrade');
     }
 
     private function link()
