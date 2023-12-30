@@ -394,7 +394,7 @@ class Magento2
         $this->unsecure();
         $this->unlink();
         $this->dropDb($input, $output, $projectName);
-        $this->deleteFiles($input, $output, $path, $projectName);
+        $this->deleteFiles($input, $output, $path);
 
         info(PHP_EOL . 'Magento 2 uninstalled successfully');
     }
@@ -456,7 +456,7 @@ class Magento2
         info('Database "' . $projectName . 'dropped successfully');
     }
 
-    private function deleteFiles($input, $output, $path, $projectName)
+    private function deleteFiles($input, $output, $path)
     {
         $helper = $this->app->getHelperSet()->get('question');
         $question = new ConfirmationQuestion(
