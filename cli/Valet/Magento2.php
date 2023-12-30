@@ -479,7 +479,7 @@ class Magento2
 
         try {
             $fs->remove($this->files->realpath($path));
-            info('Directory "' . PHP_EOL . $path . PHP_EOL . '" deleted successfully');
+            info(PHP_EOL . 'Directory ' . $path . '" deleted successfully');
         } catch (IOExceptionInterface $exception) {
             echo "An error occurred while removing your directory at " . $exception->getPath();
         }
