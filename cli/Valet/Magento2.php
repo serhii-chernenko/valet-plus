@@ -125,7 +125,7 @@ class Magento2
         $this->runCreateProject($edition, $version);
         $this->createDb($input, $output, $projectName);
         $this->fixFilesOwner();
-        $this->runM2Installation($input, $output, $projectName, $searchEngine);
+        $this->runM2Installation($projectName, $searchEngine);
         $this->link();
         $this->app->runCommand('open ' . $projectName);
     }
@@ -305,7 +305,7 @@ class Magento2
         info('Database "' . $projectName . '"' . ($isDbExisting ? ' re-' : ' ') . 'created successfully');
     }
 
-    private function runM2Installation($input, $output, $projectName, $searchEngine)
+    private function runM2Installation($projectName, $searchEngine)
     {
         $this->fixFilesOwner();
 
@@ -361,25 +361,8 @@ class Magento2
             $m2Driver->configure($this->devTools, $domain, $searchEngine);
         }
 
-        $helper = $this->app->getHelperSet()->get('question');
-        $question = new ConfirmationQuestion(
-            PHP_EOL . 'Do you want to set up sample data? [Y/n] ',
-            true
-        );
-
-        if ($helper->ask($input, $output, $question)) {
-            $cmd = 'bin/magento sampledata:deploy';
-            info(PHP_EOL . 'Running command:');
-            output($cmd);
-            $this->cli->runAsUser($cmd);
-
-            $cmd = 'bin/magento setup:upgrade';
-            info(PHP_EOL . 'Running command:');
-            output($cmd);
-            $this->cli->quietlyAsUser($cmd);
-        } else {
-            warning('Aborted');
-        }
+        output(PHP_EOL . 'If you want to set up sample data, run the command:');
+        info(PHP_EOL . 'bin/magento setup:upgrade');
     }
 
     private function link()
