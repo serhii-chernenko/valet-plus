@@ -371,7 +371,7 @@ class Magento2
             $cmd = 'bin/magento sampledata:deploy';
             info(PHP_EOL . 'Running command:');
             output($cmd);
-            $this->cli->quietlyAsUser($cmd);
+            $this->cli->runAsUser($cmd);
 
             $cmd = 'bin/magento setup:upgrade';
             info(PHP_EOL . 'Running command:');
