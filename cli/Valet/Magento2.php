@@ -394,7 +394,7 @@ class Magento2
         $this->unsecure();
         $this->unlink();
         $this->dropDb($input, $output, $projectName);
-        $this->deleteFiles($input, $output, $path);
+        $this->deleteFiles($input, $output, $path, $projectName);
 
         info(PHP_EOL . 'Magento 2 uninstalled successfully');
     }
@@ -456,7 +456,7 @@ class Magento2
         info('Database "' . $projectName . 'dropped successfully');
     }
 
-    private function deleteFiles($input, $output, $path)
+    private function deleteFiles($input, $output, $path, $projectName)
     {
         $helper = $this->app->getHelperSet()->get('question');
         $question = new ConfirmationQuestion(
@@ -479,7 +479,7 @@ class Magento2
 
         try {
             $fs->remove($this->files->realpath($path));
-            info(PHP_EOL . 'Directory ' . $path . '" deleted successfully');
+            info(PHP_EOL . 'Directory ' . $path . ' deleted successfully');
         } catch (IOExceptionInterface $exception) {
             echo "An error occurred while removing your directory at " . $exception->getPath();
         }
