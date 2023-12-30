@@ -125,7 +125,7 @@ class Magento2
         $this->runCreateProject($edition, $version);
         $this->createDb($input, $output, $projectName);
         $this->fixFilesOwner();
-        $this->runM2Installation($projectName, $searchEngine);
+        $this->runM2Installation($input, $output, $projectName, $searchEngine);
         $this->link();
         $this->app->runCommand('open ' . $projectName);
     }
@@ -305,7 +305,7 @@ class Magento2
         info('Database "' . $projectName . '"' . ($isDbExisting ? ' re-' : ' ') . 'created successfully');
     }
 
-    private function runM2Installation($projectName, $searchEngine)
+    private function runM2Installation($input, $output, $projectName, $searchEngine)
     {
         $this->fixFilesOwner();
 
@@ -359,6 +359,21 @@ class Magento2
 
         if (method_exists($m2Driver, 'configure')) {
             $m2Driver->configure($this->devTools, $domain, $searchEngine);
+        }
+
+        $helper = $this->app->getHelperSet()->get('question');
+        $question = new ConfirmationQuestion(
+            PHP_EOL . 'Do you want to set up sample data? [Y/n] ',
+            true
+        );
+
+        if ($helper->ask($input, $output, $question)) {
+            $cmd = 'bin/magento sampledata:deploy';
+            info(PHP_EOL . 'Running command:');
+            output($cmd);
+            $this->cli->quietlyAsUser($cmd);
+        } else {
+            warning('Aborted');
         }
     }
 
