@@ -27,13 +27,13 @@ class AbstractSearchEngine
 
     public function checkDocker()
     {
-        $docker = $this->cli->run('docker');
+        $docker = $this->cli->runAsUser('docker');
 
         if (preg_match('/command not found|Cannot connect/', $docker)) {
             throw new DomainException('Docker is not installed or run on this machine.');
         }
 
-        $dockerCompose = $this->cli->run('docker compose');
+        $dockerCompose = $this->cli->runAsUser('docker compose');
 
         if (preg_match('/is not a docker command/', $dockerCompose)) {
             throw new DomainException('docker compose is not installed on this machine.');
@@ -42,7 +42,7 @@ class AbstractSearchEngine
 
     public function getContainer()
     {
-        return $this->cli->run('docker ps | grep ' . static::CONTAINER);
+        return $this->cli->runAsUser('docker ps | grep ' . static::CONTAINER);
     }
 
     public function start($showInfo = true, $showError = true)
@@ -58,7 +58,7 @@ class AbstractSearchEngine
             info('[' . static::ENGINE . '] Starting');
         }
 
-        $this->cli->run('docker compose -f ' . static::COMPOSE . ' up -d --build --remove-orphans');
+        $this->cli->runAsUser('docker compose -f ' . static::COMPOSE . ' up -d --build --remove-orphans');
     }
 
     public function stop($showInfo = true, $showError = true)
@@ -74,7 +74,7 @@ class AbstractSearchEngine
             info('[' . static::ENGINE . '] Stopping');
         }
 
-        $this->cli->run('docker compose -f ' . static::COMPOSE . ' down');
+        $this->cli->runAsUser('docker compose -f ' . static::COMPOSE . ' down');
     }
 
     public function restart()
@@ -87,7 +87,7 @@ class AbstractSearchEngine
     public function logs()
     {
         $this->checkDocker();
-        $logs = $this->cli->run('docker logs ' . static::CONTAINER);
+        $logs = $this->cli->runAsUser('docker logs ' . static::CONTAINER);
         print_r($logs);
     }
 }
